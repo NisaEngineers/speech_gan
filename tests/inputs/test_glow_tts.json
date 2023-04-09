@@ -66,8 +66,8 @@
     "use_mas": false,       // use Monotonic Alignment Search if true. Otherwise use pre-computed attention alignments.
 
     // TRAINING
-    "batch_size": 2,       // Batch size for training. Lower values than 32 might cause hard to learn attention. It is overwritten by 'gradual_training'.
-    "eval_batch_size":1,
+    "batch_size": 8,       // Batch size for training. Lower values than 32 might cause hard to learn attention. It is overwritten by 'gradual_training'.
+    "eval_batch_size": 8,
     "r": 1,                 // Number of decoder frames to predict per iteration. Set the initial values if gradual training is enabled.
     "loss_masking": true,   // enable / disable loss masking against the sequence padding.
     "data_dep_init_iter": 1,
@@ -115,7 +115,7 @@
     "text_cleaner": "phoneme_cleaners",
     "enable_eos_bos_chars": false, // enable/disable beginning of sentence and end of sentence chars.
     "num_loader_workers": 0,        // number of training data loader processes. Don't set it too big. 4-8 are good values.
-    "num_val_loader_workers": 0,    // number of evaluation data loader processes.
+    "num_eval_loader_workers": 0,    // number of evaluation data loader processes.
     "batch_group_size": 0,  //Number of batches to shuffle after bucketing.
     "min_seq_len": 3,       // DATASET-RELATED: minimum text length to use in training
     "max_seq_len": 500,     // DATASET-RELATED: maximum text length
@@ -128,24 +128,22 @@
 
     // PHONEMES
     "phoneme_cache_path": "tests/outputs/phoneme_cache/",  // phoneme computation is slow, therefore, it caches results in the given folder.
-    "use_phonemes": true,           // use phonemes instead of raw characters. It is suggested for better pronounciation.
+    "use_phonemes": false,           // use phonemes instead of raw characters. It is suggested for better pronounciation.
     "phoneme_language": "en-us",     // depending on your target language, pick one from  https://github.com/bootphon/phonemizer#languages
 
     // MULTI-SPEAKER and GST
-    "use_external_speaker_embedding_file": false,
-    "external_speaker_embedding_file": null,
+    "use_d_vector_file": false,
+    "d_vector_file": null,
     "use_speaker_embedding": false,     // use speaker embedding to enable multi-speaker learning.
 
     // DATASETS
     "datasets":   // List of datasets. They all merged and they get different speaker_ids.
         [
             {
-                "name": "ljspeech",
+                "formatter": "ljspeech",
                 "path": "tests/data/ljspeech/",
                 "meta_file_train": "metadata.csv",
                 "meta_file_val": "metadata.csv"
             }
         ]
 }
-
-
